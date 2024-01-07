@@ -1,19 +1,17 @@
 const sanphamService = require("../../services/admin/sanphamService");
 const SanphamController = {
-  GetAllSanpham: (req, res) => {
-    sanphamService.GetAllSanpham((err, data) => {
-      try {
-        if (err) {
-          console.error('Error fetching all Sanpham: ' + err.stack);
-          return res.status(500).json({ message: 'Database error' });
-        }
-        if (data && data.length > 0) {
-          res.json(data);
-        } else {
-          res.json({ message: 'Không lấy được danh sách' });
-        }
-      } catch (error) {
-        res.json({ message: error.message });
+  GetSanPham(req, res) {
+    const pageSize = req.params.pageSize;
+    const pageIndex = req.params.pageIndex;
+    sanphamService.GetAllSanpham(pageSize, pageIndex, (err, data) => {
+      if (err) {
+        console.error('Error executing query: ' + err.stack);
+        return res.status(500).send('Database error');
+      }
+      if (data) {
+        res.json(data);
+      } else {
+        res.json({ message: 'Bản ghi không tồn tại' });
       }
     });
   },
@@ -75,43 +73,8 @@ const SanphamController = {
     });
   },
 
-  GetSanphamByTg: (req, res) => {
-    const id = req.params.id;
-    sanphamService.GetSanphamByTg(id, (err, data) => {
-      try {
-        if (err) {
-          console.error('Error fetching Sanpham by Tg: ' + err.stack);
-          return res.status(500).json({ message: 'Database error' });
-        }
-        if (data && data.length > 0) {
-          res.json(data);
-        } else {
-          res.json({ message: 'Bản ghi không tồn tại' });
-        }
-      } catch (error) {
-        res.json({ message: error.message });
-      }
-    });
-  },
 
-  GetSanphamByNsx: (req, res) => {
-    const id = req.params.id;
-    sanphamService.GetSanphamByNsx(id, (err, data) => {
-      try {
-        if (err) {
-          console.error('Error fetching Sanpham by Nsx: ' + err.stack);
-          return res.status(500).json({ message: 'Database error' });
-        }
-        if (data && data.length > 0) {
-          res.json(data);
-        } else {
-          res.json({ message: 'Bản ghi không tồn tại' });
-        }
-      } catch (error) {
-        res.json({ message: error.message });
-      }
-    });
-  },
+  
 
   CreateSanpham: (req, res) => {
     const Sanpham = req.body;

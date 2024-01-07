@@ -10,23 +10,14 @@ const SanphamService = {
             callback(err, results);
         });
     },
-    GetSanphamByNsx: (id, callback) => {
-        sanphamRepository.GetSanphamByNsx(id, (err, results) => {
-            callback(err, results);
-        });
-    },
-    GetSanphamByTg: (id, callback) => {
-        sanphamRepository.GetSanphamByTg(id, (err, results) => {
-            callback(err, results);
-        });
-    },
+  
     GetSanphamByLoai: (id, callback) => {
         sanphamRepository.GetSanphamByLoai(id, (err, results) => {
             callback(err, results);
         });
     },
-    GetAllSanpham: (callback) => {
-        sanphamRepository.GetAllSanpham((err, results) => {
+    GetAllSanpham: (pageSize, pageIndex,callback) => {
+        sanphamRepository.GetSanPham(pageSize, pageIndex,(err, results) => {
             callback(err, results);
         });
     },

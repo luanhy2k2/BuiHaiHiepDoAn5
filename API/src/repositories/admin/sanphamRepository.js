@@ -79,9 +79,9 @@ const SanphamRepository = {
     },
 
     UpdateSanpham: function ( Sanpham, callback) {
-        const sql = 'update detail_product set product_name = ?, price = ?, description = ?, image = ?, old_price = ?, quantity = ? where product_id = ?';
+        const sql = 'update detail_product set product_name = ?, category_id = ?, price = ?, description = ?, image = ?, old_price = ?, quantity = ? where product_id = ?';
         db.query(sql, [
-            Sanpham.product_name, Sanpham.price, Sanpham.description,
+            Sanpham.product_name, Sanpham.category_id, Sanpham.price, Sanpham.description,
             Sanpham.image, Sanpham.old_price, Sanpham.quantity, Sanpham.product_id
         ], function (error) {
             if (error) {

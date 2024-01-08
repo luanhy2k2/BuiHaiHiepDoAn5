@@ -54,24 +54,7 @@ const SanphamController = {
     });
   },
 
-  GetSanphamByLoai: (req, res) => {
-    const id = req.params.id;
-    sanphamService.GetSanphamByLoai(id, (err, data) => {
-      try {
-        if (err) {
-          console.error('Error fetching Sanpham by Loai: ' + err.stack);
-          return res.status(500).json({ message: 'Database error' });
-        }
-        if (data && data.length > 0) {
-          res.json(data);
-        } else {
-          res.json({ message: 'Bản ghi không tồn tại' });
-        }
-      } catch (error) {
-        res.json({ message: error.message });
-      }
-    });
-  },
+ 
 
 
   

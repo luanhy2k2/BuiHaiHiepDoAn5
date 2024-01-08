@@ -11,11 +11,7 @@ const SanphamService = {
         });
     },
   
-    GetSanphamByLoai: (id, callback) => {
-        sanphamRepository.GetSanphamByLoai(id, (err, results) => {
-            callback(err, results);
-        });
-    },
+  
     GetAllSanpham: (pageSize, pageIndex,callback) => {
         sanphamRepository.GetSanPham(pageSize, pageIndex,(err, results) => {
             callback(err, results);

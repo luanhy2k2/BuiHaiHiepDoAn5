@@ -79,11 +79,10 @@ const SanphamRepository = {
     },
 
     UpdateSanpham: function ( Sanpham, callback) {
-        const sql = 'CALL UpdateSanpham(?, ?, ?,?,?,?,?,?,?,?,?)';
+        const sql = 'update detail_product set product_name = ?, price = ?, description = ?, image = ?, old_price = ?, quantity = ? where product_id = ?';
         db.query(sql, [
-            Sanpham.sanp_id, Sanpham.sanp_name, Sanpham.size, Sanpham.tG_id,
-            Sanpham.loai_id, Sanpham.nsx_id, Sanpham.soTrang,
-            Sanpham.tomTat, Sanpham.namsx, Sanpham.image, Sanpham.gia
+            Sanpham.product_name, Sanpham.price, Sanpham.description,
+            Sanpham.image, Sanpham.old_price, Sanpham.quantity, Sanpham.product_id
         ], function (error) {
             if (error) {
                 callback(error, null);
@@ -94,7 +93,7 @@ const SanphamRepository = {
     },
 
     DeleteSanpham: function ( id, callback) {
-        const sql = 'CALL DeleteSanpham(?)';
+        const sql = 'delete from detail_product where product_id = ?';
         db.query(sql, [id], function (error) {
             if (error) {
                 callback(error, null);

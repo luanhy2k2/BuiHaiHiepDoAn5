@@ -2,7 +2,7 @@
 const db = require("../../config/db");
 const SanphamRepository = {
     GetSanphamById: function ( id, callback) {
-        const sql = 'CALL GetSpById(?)';
+        const sql = 'select * from detail_product where product_id = ?';
         db.query(sql, [id], function (error, [results]) {
             if (error) {
                 callback(error, null);
@@ -12,21 +12,14 @@ const SanphamRepository = {
         });
     },
 
-    GetSanphamByLoai: function ( id, callback) {
-        const sql = 'CALL GetSanphamByLoai(?)';
-        db.query(sql, [id], function (error, [results]) {
-            if (error) {
-                callback(error, null);
-            } else {
-                callback(null, results);
-            }
-        });
-    },
+    
 
 
-    GetSanphamByName: function ( name, callback) {
-        const sql = 'CALL GetSanphamByName(?)';
-        db.query(sql, [name], function (error, [results]) {
+    GetSanphamByName: function (name, callback) {
+        const sql = 'SELECT * FROM detail_product WHERE detail_product.product_name LIKE ?';
+        const searchTerm = '%' + name + '%';
+
+        db.query(sql, searchTerm, function (error, results) {
             if (error) {
                 callback(error, null);
             } else {

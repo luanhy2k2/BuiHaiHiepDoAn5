@@ -65,9 +65,9 @@ const SanphamRepository = {
     },
 
     CreateSanpham: function (Sanpham, callback) {
-        const sql = 'insert into detail_product(product_name, price, description, image, old_price,quantity) values (?,?,?,?,?,?)';
+        const sql = 'insert into detail_product(product_name, category_id, price, description, image, old_price,quantity) values (?,?,?,?,?,?,?)';
         db.query(sql, [
-            Sanpham.product_name, Sanpham.price, Sanpham.description,
+            Sanpham.product_name, Sanpham.category_id, Sanpham.price, Sanpham.description,
             Sanpham.image, Sanpham.old_price, Sanpham.quantity
         ], function (error) {
             if (error) {

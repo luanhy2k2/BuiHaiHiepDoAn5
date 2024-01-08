@@ -59,7 +59,17 @@ const DonHangController = {
     });
   },
 
- 
+  confirmOrderController(req, res) {
+    const orderId = req.params.id;
+    donhangService.confirmOrder(orderId, (err) => {
+      if (err) {
+        console.error('Error confirming order: ', err);
+        res.status(500).json({ success: false, message: 'Error confirming order' });
+      } else {
+        res.json({ success: true, message: 'Order confirmed successfully' });
+      }
+    });
+  }
 };
 
 module.exports = DonHangController;

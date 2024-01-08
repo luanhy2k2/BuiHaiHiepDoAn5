@@ -49,7 +49,52 @@ const DonHangRepository = {
             }
         });
     },
-  
+    UpdateOrderSatus: function (id, callback) {
+        const sql = 'update bill set status = ? where bill_id = ? ';
+        db.query(sql, ['Đã xác nhận', id], function (error) {
+            if (error) {
+                callback(error, null);
+            } else {
+                callback(null, true);
+            }
+        });
+    },
+    getOrderDetails(orderId, callback) {
+        db.query(
+            'SELECT product_id, quantity FROM bill_detail WHERE bill_id = ?',
+            [orderId],
+            (err, results) => {
+                if (err) {
+                    callback(err, null);
+                } else {
+                    callback(null, results);
+                }
+            }
+        );
+    },
+   
+
+    updateProductStock(orderDetails, callback) {
+        const updateNextProduct = (index) => {
+            if (index === orderDetails.length) {
+                callback(null);
+            } else {
+                const detail = orderDetails[index];
+                db.query(
+                    'UPDATE detail_product SET quantity = quantity - ? WHERE product_id = ?',
+                    [detail.quantity, detail.product_id],
+                    (err) => {
+                        if (err) {
+                            callback(err);
+                        } else {
+                            updateNextProduct(index + 1);
+                        }
+                    }
+                );
+            }
+        };
+        updateNextProduct(0);
+    }
  
 
 
